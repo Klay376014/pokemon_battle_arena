@@ -19,11 +19,13 @@ export interface Move {
   }
 }
 
+const basename = import.meta.env.BASE_URL
+
 export let moveDatabase: Record<string, Move> = {}
 
 export async function loadMoveData() {
   try {
-    const response = await fetch('/moves.json')
+    const response = await fetch(`${basename}moves.json`)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -48,6 +50,3 @@ export function getMoveByName(name: string): Move | undefined {
   
   return moveEntry ? moveEntry[1] : undefined
 }
-
-
-

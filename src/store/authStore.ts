@@ -24,7 +24,7 @@ interface AuthState {
   signInWithGoogle: () => Promise<void>
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: true,
   error: null,
@@ -33,7 +33,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     try {
       set({ loading: true, error: null })
       await signInWithEmailAndPassword(auth, email, password)
-      // User state will be updated by onAuthStateChanged listener
     } catch (error: any) {
       set({ error: error.message, loading: false })
       throw error

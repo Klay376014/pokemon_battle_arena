@@ -9,6 +9,8 @@ import Stats from '@/pages/Stats'
 import Auth from '@/pages/Auth'
 import NotFound from '@/pages/NotFound'
 
+const basename = import.meta.env.BASE_URL
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -54,6 +56,9 @@ export const router = createBrowserRouter([
       </ThemeProvider>
     ),
   },
-])
+], {
+  basename // 添加基本路徑
+})
+
 
 

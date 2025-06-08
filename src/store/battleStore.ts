@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { Pokemon, Battle } from 'vgc_data_wrapper'
-import { BattleService } from '@/lib/firebaseService'
-import { usePlayerStore } from './playerStore'
+// import { usePlayerStore } from './playerStore'
 
 interface BattleState {
   battleState: Battle | null
@@ -26,7 +25,7 @@ interface BattleState {
   endBattle: (result: 'win' | 'lose' | 'draw', duration: number) => Promise<void>
 }
 
-export const useBattleStore = create<BattleState>((set, get) => ({
+export const useBattleStore = create<BattleState>((set) => ({
   battleState: null,
   playerPokemon: new Pokemon,
   npcPokemon: new Pokemon,
@@ -72,14 +71,16 @@ export const useBattleStore = create<BattleState>((set, get) => ({
       // TODO
     })),
 
-  endBattle: async (result: 'win' | 'lose' | 'draw', duration: number) => {
-    const battleState = get().battleState
-    const { uid, playerName, playerTeam, savePlayerData } = usePlayerStore.getState()
+  endBattle: async () => {}
+
+  // endBattle: async (result: 'win' | 'lose' | 'draw', duration: number) => {
+  //   const battleState = get().battleState
+  //   const { uid, playerName, playerTeam, savePlayerData } = usePlayerStore.getState()
     
-    if (!uid || !battleState) return
+  //   if (!uid || !battleState) return
     
     // 1. 保存戰鬥記錄
-    try {
+    // try {
       // await BattleService.saveBattleRecord({
       //   playerUid: uid,
       //   playerName,
@@ -103,8 +104,8 @@ export const useBattleStore = create<BattleState>((set, get) => ({
       // // 3. 保存更新後的玩家資料
       // await savePlayerData()
       
-    } catch (error) {
-      console.error('Failed to process battle end:', error)
-    }
-  },
+  //   } catch (error) {
+  //     console.error('Failed to process battle end:', error)
+  //   }
+  // },
 }))
