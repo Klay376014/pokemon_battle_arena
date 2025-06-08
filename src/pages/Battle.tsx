@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 
 export default function Battle() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300">
+    <div>
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
         <div className="text-center">
@@ -34,3 +34,4 @@ export default function Battle() {
     </div>
   )
 }
+

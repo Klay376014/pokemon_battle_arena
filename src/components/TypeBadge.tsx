@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import { Badge } from './ui/badge'
 
+import { useTranslation } from 'react-i18next'
 // 寶可夢18種屬性的顏色配置
 const typeColors = {
   Normal: 'bg-gray-400 text-white dark:bg-gray-500',
@@ -33,13 +34,11 @@ interface TypeBadgeProps {
 }
 
 export default function TypeBadge({ type, size = 'md', className }: TypeBadgeProps) {
-  // 確保屬性名稱首字母大寫
+    const { t } = useTranslation()
   const normalizedType = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() as PokemonType
   
-  // 如果屬性不存在，使用預設的 Normal 類型顏色
   const colorClass = typeColors[normalizedType] || typeColors.Normal
   
-  // 根據尺寸設定不同的樣式
   const sizeClasses = {
     sm: 'px-2 py-0.5 text-xs',
     md: 'px-3 py-1 text-xs',
@@ -56,7 +55,7 @@ export default function TypeBadge({ type, size = 'md', className }: TypeBadgePro
         className
       )}
     >
-      {normalizedType}
+      {t(`type.${normalizedType}`) || normalizedType}
     </Badge>
   )
 }

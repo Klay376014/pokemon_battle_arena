@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { Pokemon } from 'vgc_data_wrapper'
 import { PlayerService, PlayerData } from '@/lib/firebaseService'
 import { getAuth } from 'firebase/auth'
+import { createStarterTeam } from '@/data/pokemonFactory'
 
 interface IBaseState {
   playerName: string
@@ -35,159 +36,9 @@ interface IPlayerState extends IBaseState {
   loadPlayerData: (uid: string) => Promise<void>
 }
 
-const venusaur = new Pokemon({
-  name: 'venusaur',
-  level: 50,
-  types: ['Grass', 'Poison'],
-  teraType: 'Grass',
-  weight: 100,
-  gender: 'Male',
-  status: 'Healthy',
-  specialForm: 'None',
-  takenDamage: 0,
-  baseStat: {
-    hp: 80,
-    attack: 82,
-    defense: 83,
-    specialAttack: 100,
-    specialDefense: 100,
-    speed: 80,
-  },
-  effortValues: {
-    hp: 0,
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  individualValues: {
-    hp: 31,
-    attack: 31,
-    defense: 31,
-    specialAttack: 31,
-    specialDefense: 31,
-    speed: 31,
-  },
-  statStage: {
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  nature: { plus: 'speed', minus: 'attack' },
-  flags: {
-    hasEvolution: false,
-  },
-  moves: ['Leaf Storm', 'Sludge Bomb', 'Earthquake', 'Giga Drain'],
-  sprite:
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png',
-})
-
-const charizard = new Pokemon({
-  name: 'charizard',
-  level: 50,
-  types: ['Fire', 'Flying'],
-  teraType: 'Fire',
-  weight: 90.5,
-  gender: 'Male',
-  status: 'Healthy',
-  specialForm: 'None',
-  takenDamage: 0,
-  baseStat: {
-    hp: 78,
-    attack: 84,
-    defense: 78,
-    specialAttack: 109,
-    specialDefense: 85,
-    speed: 100,
-  },
-  effortValues: {
-    hp: 0,
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  individualValues: {
-    hp: 31,
-    attack: 31,
-    defense: 31,
-    specialAttack: 31,
-    specialDefense: 31,
-    speed: 31,
-  },
-  statStage: {
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  nature: { plus: 'speed', minus: 'attack' },
-  flags: {
-    hasEvolution: false,
-  },
-  moves: ['Flamethrower', 'Dragon Claw', 'Air Slash', 'Solar Beam'],
-  sprite:
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',
-})
-
-const blastoise = new Pokemon({
-  name: 'blastoise',
-  level: 50,
-  types: ['Water',],
-  teraType: 'Water',
-  weight: 85.5,
-  gender: 'Male',
-  status: 'Healthy',
-  specialForm: 'None',
-  takenDamage: 0,
-  baseStat: {
-    hp: 79,
-    attack: 83,
-    defense: 100,
-    specialAttack: 85,
-    specialDefense: 105,
-    speed: 78,
-  },
-  effortValues: {
-    hp: 0,
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  individualValues: {
-    hp: 31,
-    attack: 31,
-    defense: 31,
-    specialAttack: 31,
-    specialDefense: 31,
-    speed: 31,
-  },
-  statStage: {
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  nature: { plus: 'specialAttack', minus: 'attack' },
-  flags: {
-    hasEvolution: false,
-  },
-  moves: ['Hydro Pump', 'Ice Beam', 'Earthquake', 'Dark Pulse'],
-  sprite:
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
-})
-
 export const usePlayerStore = create<IPlayerState>((set, get) => ({
   playerName: 'Player',
-  playerTeam: [venusaur, charizard, blastoise],
+  playerTeam: createStarterTeam(),
   currentPokemonIndex: 0,
   isNpc: false,
   useSpecialForm: false,
@@ -213,12 +64,13 @@ export const usePlayerStore = create<IPlayerState>((set, get) => ({
       currentPokemonIndex: 0,
       useSpecialForm: false,
     }),
-    setPlayerData: (playerData: Partial<PlayerData>) => {
+  setPlayerData: (playerData: Partial<PlayerData>) => {
     set({
       ...playerData,
       uid: playerData.uid || get().uid,
     })
-},
+  },
+  
   // Firebase actions
   loadPlayerData: async (uid: string) => {
     try {
@@ -300,7 +152,7 @@ interface INpcState extends IBaseState {
 
 export const useNpcStore = create<INpcState>((set) => ({
   playerName: 'NPC',
-  playerTeam: [venusaur, charizard, blastoise],
+  playerTeam: createStarterTeam(),
   currentPokemonIndex: 0,
   isNpc: true,
   useSpecialForm: false,

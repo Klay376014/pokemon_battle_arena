@@ -57,8 +57,5 @@ export const router = createBrowserRouter([
     ),
   },
 ], {
-  basename // 添加基本路徑
+  basename
 })
-
-
-

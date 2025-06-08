@@ -10,9 +10,9 @@ export default function Home() {
   const { playerName, playerTeam, winStreak, biggestWinStreak, totalWins } = usePlayerStore()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300">
+    <div>
       {/* Main Content */}
-      <main className="container mx-auto px-6 py-8">
+      <main>
         {/* Welcome Section */}
         <div className="text-center mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
@@ -159,5 +159,3 @@ export default function Home() {
     </div>
   )
 }
-
-
