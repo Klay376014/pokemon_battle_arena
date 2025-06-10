@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import TypeBadge from '@/components/TypeBadge'
 import { usePlayerStore } from '@/store/playerStore'
 import { Button } from '@/components/ui/button'
-import MoveBadge from '@/components/MoveBadge'
+import { PokemonCard } from '@/components/PokemonCard'
 
 export default function Home() {
-  const { t } = useTranslation()
   const { playerName, playerTeam, winStreak, biggestWinStreak, totalWins } = usePlayerStore()
 
   return (
@@ -65,68 +62,59 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {playerTeam.map((pokemon, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg p-6 text-center hover:shadow-md transition-all duration-200">
-                <img
-                  src={pokemon.sprite}
-                  alt={pokemon.name}
-                  className="w-24 h-24 mx-auto mb-2 hover:scale-110 transition-transform duration-200"
-                />
-                <h4 className="text-lg font-semibold capitalize text-gray-800 dark:text-gray-200 mb-2">
-                  {t(`pokemon.${pokemon.name ?? ''}`)}
-                </h4>
-                <div className="flex justify-center space-x-2 mb-2">
-                  {pokemon.types.map((type, typeIndex) => (
-                    <TypeBadge
-                      key={typeIndex}
-                      type={type}
-                      size="md"
-                    />
-                  ))}
-                </div>
-                <div className="flex flex-wrap justify-between">
-                  {pokemon.moves.map((move, moveIndex) => (
-                    <MoveBadge
-                      key={moveIndex}
-                      move={move}
-                      size="md"
-                      className='basis-[48%] mt-2'
-                    />
-                  ))}
-                </div>
-              </div>
+              <PokemonCard
+                key={index}
+                pokemon={pokemon}
+              />
             ))}
           </div>
         </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link to="/battle">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold px-8 py-3 text-lg shadow-lg"
-            >
-              ▶ 開始戰鬥
-            </Button>
+        
+        {/* Navigation Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <Link to="/battle" className="block">
+            <div className="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/30 dark:to-orange-900/30 rounded-xl p-8 text-center border border-red-200 dark:border-red-800 hover:shadow-lg transition-all duration-200 h-full">
+              <div className="text-5xl mb-4">⚔️</div>
+              <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">
+                開始對戰
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                挑戰其他訓練師，測試你的戰術！
+              </p>
+              <Button className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600">
+                進入對戰
+              </Button>
+            </div>
           </Link>
 
-          <Link to="/team-editor">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto font-semibold px-8 py-3 text-lg"
-            >
-              ◉ 編輯隊伍
-            </Button>
+          <Link to="/team-editor" className="block">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl p-8 text-center border border-blue-200 dark:border-blue-800 hover:shadow-lg transition-all duration-200 h-full">
+              <div className="text-5xl mb-4">📋</div>
+              <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">
+                隊伍編輯
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                組建和調整你的寶可夢隊伍！
+              </p>
+              <Button className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600">
+                編輯隊伍
+              </Button>
+            </div>
           </Link>
 
-          <Link to="/stats">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto font-semibold px-8 py-3 text-lg"
-            >
-              ■ 查看戰績
-            </Button>
+          <Link to="/stats" className="block">
+            <div className="bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/30 dark:to-teal-900/30 rounded-xl p-8 text-center border border-green-200 dark:border-green-800 hover:shadow-lg transition-all duration-200 h-full">
+              <div className="text-5xl mb-4">📊</div>
+              <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">
+                戰績統計
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                查看你的對戰記錄和數據分析！
+              </p>
+              <Button className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600">
+                查看統計
+              </Button>
+            </div>
           </Link>
         </div>
 
@@ -159,3 +147,4 @@ export default function Home() {
     </div>
   )
 }
+

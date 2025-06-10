@@ -14,6 +14,7 @@ export const tyranitar = new Pokemon({
     hasEvolution: false,
   },
   moves: ['Rock Slide', 'Crunch', 'Low Kick', 'Protect'],
+  item: 'Assault Vest',
   sprite:
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png',
 })
